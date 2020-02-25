@@ -8,7 +8,6 @@ def step_impl(context):
 @given('I search for "iphone"')
 def step_imp(context):
 	get_element(context.driver, elements.search_field).send_keys("iphone")
-	#TODO: Change given to include the search action
 	get_element(context.driver, elements.search_button).click()
 
 @given('I close the popup')
