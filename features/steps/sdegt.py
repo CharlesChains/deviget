@@ -22,7 +22,7 @@ def step_imp(context):
 	import time
 	time.sleep(2)
 
-@given('I close the popup')
+@given('If present I close the popup')
 def step_imp(context):
 	from selenium.webdriver.common.keys import Keys
 	import time
