@@ -17,15 +17,17 @@ def step_imp(context):
 	get_element(context.driver, elements.search_field).send_keys("iphone")
 	get_element(context.driver, elements.search_button).click()
 
+@given("I wait for two seconds")
+def step_imp(context):
+	import time
+	time.sleep(2)
+
 @given('I close the popup')
 def step_imp(context):
-	try:
-		popup = WebDriverWait(context.driver, 5).until(
-			EC.presence_of_element_located(elements.popup)
-		)
-		get_element(popup, elements.popup_cross).click()
-	except:
-		print("There was no popup")
+	from selenium.webdriver.common.keys import Keys
+	import time
+	time.sleep(5)
+	context.driver.find_element_by_css_selector('body').send_keys(Keys.ESCAPE)
 
 @when('I enter the second item in the search results')
 def step_imp(context):
