@@ -36,7 +36,7 @@ def step_imp(context):
 
 @then('I see there are more than 1 piece available')
 def step_imp(context):
-	quantity_found = get_element(context.driver, elements.product_quantity).split(" ")[0]
+	quantity_found = get_element(context.driver, elements.product_quantity).text.split(" ")[0]
 	assert(int(quantity_found) > 1)
 
 
