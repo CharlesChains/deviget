@@ -1,5 +1,7 @@
 from behave import *
 from elements import aliexpress_elements as elements
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 def get_element(context, by):
 	return context.find_element(*by)
@@ -17,9 +19,13 @@ def step_imp(context):
 
 @given('I close the popup')
 def step_imp(context):
-	popup = get_element(context.driver, elements.popup)
-	get_element(popup, elements.popup_cross).click()
-
+	try:
+		popup = WebDriverWait(context.driver, 5).until(
+			EC.presence_of_element_located(elements.popup)
+		)
+		get_element(popup, elements.popup_cross).click()
+	except:
+		print("There was no popup")
 
 @when('I enter the second item in the search results')
 def step_imp(context):
@@ -32,13 +38,16 @@ def step_imp(context):
 	assert(int(quantity_found) > 1)
 
 
+@given("I go to the 2nd page")
+def step_impl(context):
+	context.driver.execute_script("window.scrollTo(0,  document.body.scrollHeight)")
+	WebDriverWait(context.driver, 10).until(
+		EC.presence_of_element_located((elements.second_page))
+	).click()
+
 """  Scenario: "As a Customer we want to see if the second Iphone related ad from the second results page from www.aliexpress.com has at least 1 item to be bought."
 	Given I access "http://www.aliexpress.com/"
 	Given I enter "Iphone" into the search field
 	When I enter the second item in the search results
 	Then I see there are more than 1 piece available"""
 
-
-@given("I go to the 2nd page")
-def step_impl(context):
-	get_element(context.driver, elements.second_page).click()
