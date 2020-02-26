@@ -5,5 +5,6 @@ Feature: SDET--SG
 		Given I search for "iphone"
 		Given I close the popup
 		Given I go to the 2nd page
+		Given I wait for two seconds
 		When I enter the second item in the search results
 		Then I see there are more than 1 piece available
